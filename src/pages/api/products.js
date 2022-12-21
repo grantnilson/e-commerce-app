@@ -10,7 +10,7 @@ Array.from({ length:10 }).forEach(()=> {
             min: 50, 
             max: 100
         }),
-        image: faker.image.sports(),
+        image: faker.image.business(1280, 720, true),
         description: faker.commerce.productDescription(),
         stock: faker.datatype.number({
             min: 0, 
