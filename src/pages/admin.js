@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import Layout from "../components/Layout";
 
 const AdminPage = () => {
-  return (
-    <div>admin</div>
-  )
-}
+  return <Layout>admin</Layout>;
+};
 
-export default AdminPage
+export default AdminPage;
