@@ -28,7 +28,6 @@ const Home = () => {
             products.map((product) => (
               <Product key={product.id} {...product} />
             ))}
-          /*{" "}
         </section>
       </main>
     </Layout>
