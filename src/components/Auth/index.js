@@ -35,18 +35,18 @@ const Auth = () => {
           },
         }
       );
-      if (signUpError) toast.error(signUpError.message);
+      if (signUpError) return toast.error(signUpError.message);
       await supabase.from("user").insert([
         {
           name: form.name,
         },
       ]);
     } else {
-      const { error } = await supabase.auth.signIn({
+      const { error } = await supabase.auth.signInWithPassword({
         email: form.email,
         password: form.password,
       });
-      if (error) toast.error(signUpError.message);
+      if (error) return toast.error(signUpError.message);
     }
     toast.success(
       formType === "signup"

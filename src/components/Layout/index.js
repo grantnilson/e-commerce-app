@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
-    if (error) toast.error(error.message);
+    if (error) return toast.error(error.message);
     dispatch({ type: "LOGOUT" });
   };
 
