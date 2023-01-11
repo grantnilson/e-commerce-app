@@ -10,12 +10,14 @@ const Product = (product) => {
       <h3 className="text-xl font-semibold">{product.name} </h3>
       <p className="truncate">{product.description}</p>
       <div className="aspect-video relative">
-        <Image
-          src={product.image}
-          alt={product.name}
-          layout="fill"
-          object-fit="cover"
-        />
+        {product.image && (
+          <Image
+            src={product.image}
+            alt={product.name}
+            layout="fill"
+            object-fit="cover"
+          />
+        )}
       </div>
       <p>
         <span className="text-gray-600">${product.price} </span>

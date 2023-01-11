@@ -176,6 +176,7 @@ const ProductForm = () => {
 
   const uploadImage = async () => {
     const imageName = `${Date.now()}-${imageFile.name}`;
+    console.log(imageName);
     const { error } = await supabase.storage
       .from("products")
       .upload(`images/${imageName}`, imageFile, {
@@ -185,9 +186,16 @@ const ProductForm = () => {
 
     if (error) return toast.error(error.message);
 
-    console.log(imageName);
+    const pathToImage = `images/${imageName}`;
+    console.log(pathToImage);
 
-    return imageName;
+    const { data: publicURL, imageFetchError } = supabase.storage
+      .from("products")
+      .getPublicUrl(pathToImage);
+
+    console.log(publicURL);
+
+    return new URL(publicURL.publicUrl).href;
   };
 
   const handleImageChange = (e) => {

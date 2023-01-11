@@ -5,6 +5,7 @@ import Auth from "../Auth";
 import { AuthContext } from "../../state/AuthContext";
 import { supabase } from "../../utils/supabaseClient";
 import { Toast } from "react-hot-toast";
+import Link from "next/link";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -21,11 +22,13 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col w-full h-full">
       <header className="w-full h-32 my-4 mx-auto flex items-center bg-gray-200 justify-end space-x-4">
-        <h1 className="mx-auto text-2xl font-light">
-          E-Commerce Web Application
-        </h1>
+        <div className="mx-auto select-none text-2xl font-light">
+          <Link href="/" className="">
+            E-Commerce Web Application
+          </Link>
+        </div>
         {!session && (
           <>
             <div className="">

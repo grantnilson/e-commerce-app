@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import Product from "../components/Product";
+import { ProductsContext } from "../state/ProductsContext";
 
 const API_URL = "http://localhost:3000";
 
 const Home = () => {
+  /*
   const [products, setProducts] = useState([]);
   const router = useRouter();
   useEffect(() => {
@@ -18,6 +20,9 @@ const Home = () => {
     }
     getProducts();
   }, []);
+  */
+
+  const { products, loading } = useContext(ProductsContext);
 
   return (
     <Layout>
