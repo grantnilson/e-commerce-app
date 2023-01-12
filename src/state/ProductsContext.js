@@ -1,21 +1,25 @@
-import React, { useState, useEffect, createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import { showErrorToast } from "../utils";
 import { supabase } from "../utils/supabaseClient";
 
-export const ProductsContext = createContext(null);
+export const ProductsContext = createContext({
+  products: [],
+  loading: false,
+});
 
 const ProductsContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     async function fetchProducts() {
       setLoading(true);
       const { data, error } = await supabase.from("product").select("*");
       if (error) {
-        showErrorToast(error.message, setLoading);
+        return showErrorToast(error.message, setLoading);
       }
-      console.log("products", data);
       setProducts(data);
+      setLoading(false);
     }
     fetchProducts();
   }, []);

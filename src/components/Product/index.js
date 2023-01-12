@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
+import { CartContext } from "../../state/CartContext";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 const Product = (product) => {
+  const { cartState, removeFromCart, addToCart } = useContext(CartContext);
+
+  console.log("cart state", cartState);
   return (
     <div
       className="p-4 flex-col hover:scale-105 hover:border-black transition transform space-y-2 border border-black/30"
@@ -29,12 +34,30 @@ const Product = (product) => {
         >
           Buy Now
         </button>
-        <button
-          className="py-0.5 h-full text-lg w-full bg-black text-white
-     hover:text-black hover:bg-white border-black rounded"
-        >
-          Add to Cart
-        </button>
+        {!cartState[product.id] ? (
+          <button
+            className="py-0.5 h-full text-lg w-full bg-black hover:text-black hover:bg-white border-black border text-white rounded"
+            onClick={() => addToCart(product)}
+          >
+            Add to cart
+          </button>
+        ) : (
+          <div className="flex items-center justify-center w-full gap-x-4">
+            <button
+              className="py-0.5 h-full text-lg flex items-center justify-center w-full bg-black hover:text-black hover:bg-white border-black border text-white rounded"
+              onClick={() => removeFromCart(product)}
+            >
+              <AiOutlineMinus />
+            </button>
+            {cartState[product.id]}
+            <button
+              className="py-0.5 h-full text-lg flex items-center justify-center w-full bg-black hover:text-black hover:bg-white border-black border text-white rounded"
+              onClick={() => addToCart(product)}
+            >
+              <AiOutlinePlus />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
