@@ -42,6 +42,7 @@ const Auth = () => {
       await supabase.from("user").insert([
         {
           name: form.name,
+          email: form.email,
         },
       ]);
     } else {

@@ -20,15 +20,11 @@ const CartContextProvider = ({ children }) => {
   const { setCartState, cartState, removeFromCart, addToCart, clearCart } =
     useCart();
 
-  // when the application run the first time
-  // we will check if the cart is empty or not
-  // if not empty we will get the cart from localStorage and update the state
   useEffect(() => {
     const localCart = getItem();
     if (localCart) {
       setCartState(localCart);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const totalCartItems = useMemo(() => {

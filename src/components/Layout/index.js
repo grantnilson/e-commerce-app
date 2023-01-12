@@ -85,7 +85,7 @@ const Layout = ({ children }) => {
                 className="px-4 py-2 text-lg bg-black text-white hover:text-black hover:bg-white border-black rounded"
                 onClick={() => router.push("/cart")}
               >
-                Logout
+                Cart - {totalCartItems}
               </button>
             </div>
           </>

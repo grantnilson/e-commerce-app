@@ -11,10 +11,6 @@ const CartPage = () => {
   const { dispatch } = useContext(AuthContext);
 
   const handleCheckout = async () => {
-    // now we will insert all the product items into the database order item table
-    // before doing so we will need the orderId
-    // so first we will create an order
-    // then we will update order_item table with corresponding orderId
     if (!supabase.auth.getSession()) {
       dispatch({
         type: "OPEN_AUTH_MODAL",
@@ -22,13 +18,22 @@ const CartPage = () => {
       });
       return toast.error("You must be logged in to checkout");
     }
-    console.log(supabase.auth.getSession().user);
+    const { data: user_info } = await supabase.auth.getUser();
+
+    const { data: selected_user } = await supabase
+      .from("user")
+      .select()
+      .eq("email", user_info.user.email);
+
     const { data, error } = await supabase.from("order").insert([
       {
         status: "PENDING",
-        user_id: supabase.auth.getSession().user.id,
+        user_id: selected_user[0].id,
       },
     ]);
+    if (!error) {
+      toast.success("Order checked out successfully!");
+    }
   };
 
   return (
@@ -38,7 +43,10 @@ const CartPage = () => {
         {cartWithQuantity && (
           <div className="flex flex-col gap-y-4">
             {cartWithQuantity.map((product, idx) => (
-              <div key={product.id + idx} className="flex flex-col gap-y-4">
+              <div
+                key={`${product.id}+ ${idx}`}
+                className="flex flex-col gap-y-4"
+              >
                 <p>
                   {product.name} x{product.quantity} = $
                   {product.quantity * product.price || 0}
