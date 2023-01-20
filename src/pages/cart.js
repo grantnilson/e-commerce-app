@@ -19,6 +19,7 @@ const CartPage = () => {
       return toast.error("You must be logged in to checkout");
     }
     const { data: user_info } = await supabase.auth.getUser();
+    console.log("user info", user_info);
 
     const { data: selected_user } = await supabase
       .from("user")

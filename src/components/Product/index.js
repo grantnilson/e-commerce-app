@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { CartContext } from "../../state/CartContext";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 const Product = (product) => {
+  const router = useRouter();
   const { cartState, removeFromCart, addToCart } = useContext(CartContext);
 
   console.log("cart state", cartState);
@@ -31,6 +33,7 @@ const Product = (product) => {
         <button
           className="py-0.5 h-full text-lg w-full bg-black text-white
      hover:text-black hover:bg-white border-black rounded"
+          onClick={() => router.push("/cart")}
         >
           Buy Now
         </button>

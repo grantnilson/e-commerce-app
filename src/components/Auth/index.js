@@ -39,8 +39,15 @@ const Auth = () => {
         showErrorToast(signUpError.message, setLoading);
         return;
       }
+      //check to see if user was created
+
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      console.log("user data", user);
       await supabase.from("user").insert([
         {
+          id: user.id,
           name: form.name,
           email: form.email,
         },
